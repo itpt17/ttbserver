@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const renderTimeTable = (filepath)=>{
+    try{
     var content = fs.readFileSync(filepath,'utf-8');
     var begindate = content.split(`<span id="ctl00_ContentPlaceHolder1_ctl00_lblNote" class="Label" style="font-style:italic;">`)[1];
     begindate = begindate.split("</span>")[0];
@@ -62,6 +63,9 @@ const renderTimeTable = (filepath)=>{
         return {subject: part1, detail: tmp, time: part3};
     });
     return {begin:begindate,sbjlist}
+    }catch{
+        return {begin:0,sbjlist:[]};
+    }
 }
 
 module.exports = {
